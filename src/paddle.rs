@@ -14,12 +14,13 @@ const HEIGHT: f32 = 100.0;
 pub struct Paddle {
     pub bounds: Rectangle,
     pub score: u32,
+    pub player: u32,
 }
 
 impl Paddle {
     /// Creates a paddle at the given position.
     /// The paddle can only move vertically.
-    pub fn new(x: f32, y: f32) -> Paddle {
+    pub fn new(x: f32, y: f32, player: u32) -> Paddle {
         Paddle {
             bounds: Rectangle {
                 x: x - WIDTH / 2.0,
@@ -28,6 +29,7 @@ impl Paddle {
                 height: HEIGHT,
             },
             score: 0,
+            player: player,
         }
     }
 
@@ -36,12 +38,22 @@ impl Paddle {
         /// Move the paddle if a particular key is pressed.
         // TODO: Allow the left and right paddles to be controlled via different keys/mouse.
         let mut vy = 0.0;
-        if pressed_keys.contains(&VirtualKeyCode::Up) {
-            vy -= KEYBOARD_SPEED;
+        if self.player == 2 {
+            if pressed_keys.contains(&VirtualKeyCode::Up) {
+                vy -= KEYBOARD_SPEED;
+            }
+            if pressed_keys.contains(&VirtualKeyCode::Down) {
+                vy += KEYBOARD_SPEED;
+            }
+        } else if self.player == 1 {
+            if pressed_keys.contains(&VirtualKeyCode::W) {
+                vy -= KEYBOARD_SPEED;
+            }
+            if pressed_keys.contains(&VirtualKeyCode::S) {
+                vy += KEYBOARD_SPEED;
+            }
         }
-        if pressed_keys.contains(&VirtualKeyCode::Down) {
-            vy += KEYBOARD_SPEED;
-        }
+
 
         self.bounds.y += vy * params.dt; 
 
