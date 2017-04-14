@@ -35,7 +35,7 @@ fn main() {
 
 const GAME_WIDTH: u32 = 1280;
 const GAME_HEIGHT: u32 = 720;
-const GAME_FRAMERATE: f32 = 60.0;
+const GAME_FRAMERATE: f32 = 480.0;
 const SCORE_TO_WIN: u32 = 10;
 
 /// The controller for the game.
